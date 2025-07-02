@@ -7,8 +7,14 @@
     <string name="next_button">Next</string>
 
     <!-- questions -->
-    <string name="question_1">Square root of 49 is 6</string>
-    <string name="question_2">7x8=54</string>
-    <string name="question_3">2+2*4=16</string>
-    <string name="question_4">14*14=196</string>
+    <string name="question_1">Square root of 49 is 6</string> <!--false -->
+    <string name="question_2">7x8=54</string> <!--false -->
+    <string name="question_3">2+2*4=16</string> <!--false -->
+    <string name="question_4">14*14=196</string> <!--true -->
+    <string name="question_5">15*15=225</string> <!--true -->
+    <string name="question_6">19–8=9</string><!--false -->
+    <string name="question_7">20*20=400</string><!--true -->
+    <string name="question_8">21*22=462</string><!--true -->
+    <string name="question_9">15 is a prime number</string><!--false -->
+    <string name="question_10">17 is a prime number</string><!--true -->
 </resources>

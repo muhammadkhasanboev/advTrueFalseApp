@@ -73,4 +73,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    Questions[] question = new Questions[]{
+            new Questions(R.string.question_1, false),
+            new Questions(R.string.question_2, false),
+            new Questions(R.string.question_3, false),
+            new Questions(R.string.question_4, true),
+            new Questions(R.string.question_5, true),
+            new Questions(R.string.question_6, false),
+            new Questions(R.string.question_7, true),
+            new Questions(R.string.question_8, true),
+            new Questions(R.string.question_9, false),
+            new Questions(R.string.question_10, true)
+
+    };
 }
