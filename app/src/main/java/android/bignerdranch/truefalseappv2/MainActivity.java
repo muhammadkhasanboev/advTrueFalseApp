@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView mQuestionText;
     private int mCurrentIndex = 0;
     private int score = 0;
+    private static final int REQUEST_CODE_CHEAT = 0;
+    private boolean[] mIsCheater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt("index", 0);
             score = savedInstanceState.getInt("score", 0);
+            mIsCheater = savedInstanceState.getBooleanArray("cheater_array");
         }
 
         EdgeToEdge.enable(this);
@@ -97,9 +101,13 @@ public class MainActivity extends AppCompatActivity {
 //                action
                 boolean answer = mQuestionBank[mCurrentIndex].getQuestionAnswer();
                 Intent i = CheatActivity.newIntent(MainActivity.this, answer);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_CODE_CHEAT);
             }
         });
+
+        // After mQuestionBank is created
+        mIsCheater = new boolean[mQuestionBank.length];
+
 
 
     }
@@ -109,8 +117,20 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("index", mCurrentIndex);
         savedInstanceState.putInt("score", score);
+        savedInstanceState.putBooleanArray("cheater_array", mIsCheater);
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CHEAT && resultCode == RESULT_OK) {
+            if (data != null) {
+                boolean didCheat = data.getBooleanExtra("did_cheat", false);
+                mIsCheater[mCurrentIndex] = didCheat;
+            }
+        }
+    }
 
 
 
@@ -127,9 +147,6 @@ public class MainActivity extends AppCompatActivity {
             new Question(R.string.question_10, true)
 
     };
-
-
-
 //    update question method
     private void updateQuestion(){
         if(mCurrentIndex<mQuestionBank.length){
@@ -143,17 +160,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 //checks answer of the user
-    private void checkAnswer(boolean userAnswer){
-        int messageID = 0;
-        boolean realAnswer = mQuestionBank[mCurrentIndex].getQuestionAnswer();
-        if(userAnswer==realAnswer){
-            score++;
-            messageID=R.string.correct_toast;
-        }else{
-            messageID=R.string.incorrect_toast;
-        }
-        Toast.makeText(MainActivity.this, messageID, Toast.LENGTH_SHORT).show();
+private void checkAnswer(boolean userAnswer) {
+    int messageID;
+    boolean realAnswer = mQuestionBank[mCurrentIndex].getQuestionAnswer();
+
+    if (mIsCheater[mCurrentIndex]) {
+        messageID = R.string.judgment_toast; // “You cheated!” message in strings.xml
+    } else if (userAnswer == realAnswer) {
+        score++;
+        messageID = R.string.correct_toast;
+    } else {
+        messageID = R.string.incorrect_toast;
     }
+
+    Toast.makeText(MainActivity.this, messageID, Toast.LENGTH_SHORT).show();
+}
+
 
     //increases index by 1
     private void goToNextQuestion(){

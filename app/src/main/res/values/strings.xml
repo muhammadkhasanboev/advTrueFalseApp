@@ -25,4 +25,5 @@
     <string name="cheat_text">Do you really want to Cheat?</string>
     <string name="cheat">yes,Cheat</string>
     <string name="refuse_cheat">No, I don\'t</string>
+    <string name="judgment_toast">Cheating is not good!!!</string>
 </resources>
