@@ -31,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
         });
 //        question text
         mQuestionText = (TextView) findViewById(R.id.question_text);
+        updateQuestion();
+        mQuestionText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToNextQuestion();
+            }
+        });
 
 
 //        linking buttons and setting listeners
@@ -40,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                action
                 checkAnswer(true);
+                goToNextQuestion();
             }
         });
 
@@ -49,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 //              action
                 checkAnswer(false);
+                goToNextQuestion();
             }
         });
 
@@ -57,7 +66,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                action
-
+                    if(mCurrentIndex>0){
+                        mCurrentIndex--;
+                        updateQuestion();
+                    }
             }
         });
 
@@ -66,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                action
-
+                    goToNextQuestion();
             }
         });
 
@@ -80,19 +92,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    Questions[] mQuestionBank = new Questions[]{
-            new Questions(R.string.question_1, false),
-            new Questions(R.string.question_2, false),
-            new Questions(R.string.question_3, false),
-            new Questions(R.string.question_4, true),
-            new Questions(R.string.question_5, true),
-            new Questions(R.string.question_6, false),
-            new Questions(R.string.question_7, true),
-            new Questions(R.string.question_8, true),
-            new Questions(R.string.question_9, false),
-            new Questions(R.string.question_10, true)
+    private final Question[] mQuestionBank = new Question[]{
+            new Question(R.string.question_1, false),
+            new Question(R.string.question_2, false),
+            new Question(R.string.question_3, false),
+            new Question(R.string.question_4, true),
+            new Question(R.string.question_5, true),
+            new Question(R.string.question_6, false),
+            new Question(R.string.question_7, true),
+            new Question(R.string.question_8, true),
+            new Question(R.string.question_9, false),
+            new Question(R.string.question_10, true)
 
     };
+
+
 
 //    update question method
     private void updateQuestion(){
@@ -101,9 +115,12 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             mQuestionText.setText("Quiz finished!\n"+"Your Score: "+score+"/"+mQuestionBank.length);
+           hideAllButtons();
         }
     }
 
+
+//checks answer of the user
     private void checkAnswer(boolean userAnswer){
         int messageID = 0;
         boolean realAnswer = mQuestionBank[mCurrentIndex].getQuestionAnswer();
@@ -115,4 +132,22 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(MainActivity.this, messageID, Toast.LENGTH_SHORT).show();
     }
+
+    //increases index by 1
+    private void goToNextQuestion(){
+        if(mCurrentIndex<mQuestionBank.length){
+            mCurrentIndex++;
+            updateQuestion();
+        }
+    }
+
+    //hides buttons from screen
+    private void hideAllButtons(){
+        mTrueButton.setVisibility(View.GONE);
+        mFalseButton.setVisibility(View.GONE);
+        mPrevButton.setVisibility(View.GONE);
+        mNextButton.setVisibility(View.GONE);
+        mCheatButton.setVisibility(View.GONE);
+    }
+
 }

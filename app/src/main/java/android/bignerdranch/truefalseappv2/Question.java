@@ -1,10 +1,10 @@
 package android.bignerdranch.truefalseappv2;
 
-public class Questions {
+public class Question {
     private int mQuestionResId;
     private boolean mQuestionAnswer;
 
-    public Questions(int mQuestionResId, boolean mQuestionAnswer){
+    public Question(int mQuestionResId, boolean mQuestionAnswer){
         this.mQuestionResId = mQuestionResId;
         this.mQuestionAnswer = mQuestionAnswer;
     }
