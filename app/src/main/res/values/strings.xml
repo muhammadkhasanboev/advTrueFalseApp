@@ -17,4 +17,8 @@
     <string name="question_8">21*22=462</string><!--true -->
     <string name="question_9">15 is a prime number</string><!--false -->
     <string name="question_10">17 is a prime number</string><!--true -->
+
+    <!-- toast texts -->
+    <string name="correct_toast">Correct!</string>
+    <string name="incorrect_toast">Incorrect!</string>
 </resources>
