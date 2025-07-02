@@ -19,6 +19,8 @@ public class CheatActivity extends AppCompatActivity {
     private static final String EXTRA_ANSWER_IS_TRUE = "android.bignerdanch.truefalseappv2.answer_is_true";
     private boolean mAnswer;
     private TextView mAnswerTextView;
+    private boolean mDidCheat = false;
+
 
 
     @Override
@@ -40,12 +42,15 @@ public class CheatActivity extends AppCompatActivity {
         mCheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String answerText = "Answer is: " + (mAnswer ? "True" : "False");
-                mAnswerTextView.setText(answerText);
+                if (!mDidCheat) {
+                    mDidCheat = true;
+                    mAnswerTextView.setText("Answer is: " + (mAnswer ? "True" : "False"));
+                    Intent data = new Intent();
+                    data.putExtra("did_cheat", true);
+                    setResult(RESULT_OK, data);
+                    mRefuseCheatButton.setEnabled(false); // or setVisibility(View.GONE)
+                }
 
-                Intent data = new Intent();
-                data.putExtra("did_cheat", true);
-                setResult(RESULT_OK, data);
             }
         });
 
