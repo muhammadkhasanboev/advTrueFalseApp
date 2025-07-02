@@ -1,5 +1,6 @@
 package android.bignerdranch.truefalseappv2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
@@ -94,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                action
+                boolean answer = mQuestionBank[mCurrentIndex].getQuestionAnswer();
+                Intent i = CheatActivity.newIntent(MainActivity.this, answer);
+                startActivity(i);
             }
         });
 
