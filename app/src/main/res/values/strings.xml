@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TrueFalseAppV2</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="cheat_button">Cheat!</string>
+    <string name="prev_button">Prev.</string>
+    <string name="next_button">Next</string>
+
+    <!-- questions -->
+    <string name="question_1">Square root of 49 is 6</string>
+    <string name="question_2">7x8=54</string>
+    <string name="question_3">2+2*4=16</string>
+    <string name="question_4">14*14=196</string>
+</resources>
