@@ -21,7 +21,7 @@
     <!-- toast texts -->
     <string name="correct_toast">Correct!</string>
     <string name="incorrect_toast">Incorrect!</string>
-
+<!-- CheatingActivity class-->
     <string name="cheat_text">Do you really want to Cheat?</string>
     <string name="cheat">yes,Cheat</string>
     <string name="refuse_cheat">No, I don\'t</string>
