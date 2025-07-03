@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             mCurrentIndex = savedInstanceState.getInt("index", 0);
             score = savedInstanceState.getInt("score", 0);
             mIsCheater = savedInstanceState.getBooleanArray("cheater_array");
+            cheatCount = savedInstanceState.getInt("cheat_count");
             if (mIsCheater == null) {
                 mIsCheater = new boolean[mQuestionBank.length];
             }
@@ -82,9 +83,14 @@ public class MainActivity extends AppCompatActivity {
 
         mPrevButton = (Button) findViewById(R.id.prev_button);
         mPrevButton.setOnClickListener(v -> {
-            if (mCurrentIndex > 0) {
+            if(mCurrentIndex==0){
+                mPrevButton.setEnabled(false);
+            }
+            else if (mCurrentIndex > 0) {
                 mCurrentIndex--;
                 updateQuestion();
+                mTrueButton.setEnabled(false);
+                mFalseButton.setEnabled(false);
             }
         });
 
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putInt("index", mCurrentIndex);
         savedInstanceState.putInt("score", score);
         savedInstanceState.putBooleanArray("cheater_array", mIsCheater);
+        savedInstanceState.putInt("cheat_count", cheatCount);
     }
 
     // receives result from CheatActivity
